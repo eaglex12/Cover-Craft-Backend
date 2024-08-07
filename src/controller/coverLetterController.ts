@@ -72,8 +72,24 @@ export const generateBetterCoverLetter = async (
 		}
 
 		const prompt = `
-      // ... (rest of the prompt)
-    `;
+You are a professional cover letter writer. Given the following details:
+
+**Current Cover Letter:**
+\n${file}\n
+
+**Update with the following information:**
+- **Name:** ${name}
+- **Company:** ${company}
+- **Role:** ${role}
+
+Generate a more compelling and personalized cover letter. The updated cover letter should clearly highlight the candidate's relevant experience, achievements, and enthusiasm for the role and company. Ensure that the cover letter is well-structured, professional, and tailored to the specified job and company. Do not include square brackets in the final output; replace them with the provided information.
+
+**Output Format:**
+- Introduction that addresses the hiring manager.
+- Description of relevant experience and achievements.
+- Connection to the company’s values or mission.
+- Conclusion with a call to action for further discussion.
+`;
 
 		const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
 		const result = await model.generateContent([prompt]);

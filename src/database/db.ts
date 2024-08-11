@@ -15,7 +15,7 @@ export const connectTodb = async () => {
 	try {
 		await client.connect();
 		console.log("Connected successfully to server");
-		const db = client.db("aift_database");
+		const db = client.db("Cover Letter Databases");
 		return db;
 	} catch (err) {
 		console.error(`Failed to connect to MongoDB: ${err}`);

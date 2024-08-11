@@ -37,6 +37,7 @@
     "inversify": "^6.0.2",
     "inversify-express-utils": "^6.4.6",
     "jsonwebtoken": "^9.0.2",
+    "mongodb": "^6.8.0",
     "mongoose": "^8.1.0",
     "nodemailer": "^6.9.8",
     "reflect-metadata": "^0.2.1",

@@ -4,6 +4,7 @@ import express, { Application } from "express";
 import cors from "cors";
 import cookieParser from "cookie-parser";
 import router from "./routes/cover-letter";
+import userRouter from "./routes/userRoutes";
 import { connectTodb, disconnectdb } from "./database/db";
 
 const url = process.env.FRONTEND_URL ?? "";
@@ -20,6 +21,7 @@ app.use(
 );
 
 app.use("/api", router);
+app.use("/api", userRouter);
 
 const startServer = async () => {
 	try {

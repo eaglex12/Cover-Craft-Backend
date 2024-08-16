@@ -7,6 +7,10 @@ class UserService {
 	}
 
 	public async createUser(data: Partial<IUser>): Promise<IUser> {
+		const existingUser = await User.findOne({ email: data.email });
+		if (existingUser) {
+			throw new Error("Email already exists");
+		}
 		const newUser = new User(data);
 		console.log("🚀 ~ UserService ~ createUser ~ newUser:", newUser);
 		return await newUser.save();

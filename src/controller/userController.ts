@@ -34,9 +34,14 @@ class UserController {
 
 			const newUser = await UserService.createUser(userData);
 			res.status(201).json(newUser);
-		} catch (error) {
+		} catch (error: any) {
 			console.error("🚀 ~ UserController ~ createUser ~ error:", error);
-			res.status(500).json({ message: "Internal Server Error" });
+
+			if (error.message === "Email already exists") {
+				res.status(409).json({ message: "Email already exists" });
+			} else {
+				res.status(500).json({ message: "Internal Server Error" });
+			}
 		}
 	}
 

@@ -1,4 +1,4 @@
-import mongoose, { Schema } from "mongoose";
+import mongoose, { Schema, Document } from "mongoose";
 import { IUser } from "../interface/IUser";
 
 const UserSchema: Schema = new Schema({
@@ -27,9 +27,9 @@ const UserSchema: Schema = new Schema({
 	},
 });
 
-UserSchema.pre<IUser>("save", function (next) {
+UserSchema.pre<IUser & Document>("save", function (next) {
 	this.updatedAt = new Date();
 	next();
 });
 
-export default mongoose.model<IUser>("User", UserSchema);
+export default mongoose.model<IUser & Document>("User", UserSchema);

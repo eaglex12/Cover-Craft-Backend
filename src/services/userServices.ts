@@ -8,6 +8,7 @@ class UserService {
 
 	public async createUser(data: Partial<IUser>): Promise<IUser> {
 		const newUser = new User(data);
+		console.log("🚀 ~ UserService ~ createUser ~ newUser:", newUser);
 		return await newUser.save();
 	}
 

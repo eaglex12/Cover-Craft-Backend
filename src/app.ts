@@ -26,7 +26,6 @@ app.use("/api", userRouter);
 const startServer = async () => {
 	try {
 		await connectTodb();
-		console.log("Database connected successfully");
 		app.listen(process.env.PORT, () => {
 			console.log("Server Started on:", process.env.PORT);
 		});

@@ -5,7 +5,7 @@ import cors from "cors";
 import cookieParser from "cookie-parser";
 import router from "./routes/cover-letter";
 import userRouter from "./routes/userRoutes";
-import { connectTodb, disconnectdb } from "./database/db";
+import { connectToDb, disconnectFromDb } from "./database/db";
 
 const url = process.env.FRONTEND_URL ?? "";
 const app: Application = express();
@@ -25,13 +25,13 @@ app.use("/api", userRouter);
 
 const startServer = async () => {
 	try {
-		await connectTodb();
+		await connectToDb();
 		app.listen(process.env.PORT, () => {
 			console.log("Server Started on:", process.env.PORT);
 		});
 	} catch (err) {
 		console.error("Failed to start server:", err);
-		await disconnectdb();
+		await disconnectFromDb();
 		process.exit(1);
 	}
 };

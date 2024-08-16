@@ -1,39 +1,39 @@
-import { MongoClient } from "mongodb";
+import mongoose from "mongoose";
 import dotenv from "dotenv";
+import { ServerApiVersion } from "mongodb";
 
 dotenv.config();
 
-const url = process.env.MONGODB_URL;
+const mongoUri = process.env.MONGODB_URL;
 
-if (!url) {
+if (!mongoUri) {
 	throw new Error("MONGODB_URL environment variable is not set");
 }
 
-const client = new MongoClient(url);
-
-export const connectTodb = async () => {
+const connectToDb = async () => {
 	try {
-		await client.connect();
-		console.log("Connected successfully to server");
-		const db = client.db("Cover Letter");
-		return db;
-	} catch (err) {
-		console.error(`Failed to connect to MongoDB: ${err}`);
-		throw err;
+		await mongoose.connect(mongoUri, {
+			serverApi: {
+				version: ServerApiVersion.v1,
+				strict: true,
+				deprecationErrors: true,
+			},
+		});
+		console.log("Connected successfully to MongoDB");
+	} catch (error) {
+		console.error("Failed to connect to MongoDB:", error);
+		throw error;
 	}
 };
 
-export const disconnectdb = async () => {
-	if (!client) {
-		console.log("No MongoDB client to disconnect");
-		return;
-	}
-
+const disconnectFromDb = async () => {
 	try {
-		await client.close();
+		await mongoose.disconnect();
 		console.log("Disconnected successfully from MongoDB");
-	} catch (err) {
-		console.error(`Failed to disconnect from MongoDB: ${err}`);
-		throw err;
+	} catch (error) {
+		console.error("Failed to disconnect from MongoDB:", error);
+		throw error;
 	}
 };
+
+export { connectToDb, disconnectFromDb };
